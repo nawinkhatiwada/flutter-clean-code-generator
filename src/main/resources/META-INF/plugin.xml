@@ -1,0 +1,40 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.androidbolts.fluttergenerator.FCCG</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Flutter Clean Code Generator</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="nawin.khatiwada@gmail.com">Nabin Khatiwada</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+   Flutter Clean Code generator Plugin to generate folder structure.<br>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+
+    <actions>
+<!--        <group id="GenerateCleanCode.NewGroup"-->
+<!--               text="Generate Clean Code"-->
+<!--               popup="true">-->
+<!--            <add-to-group group-id="NewGroup" anchor="last"/>-->
+<!--        </group>-->
+        <action id="GenerateCleanCode.NewAction"
+                class="com.androidbolts.fluttergenerator.fccg.GenerateFolderStructureAction"
+                text="Generate Flutter Clean Code">
+            <add-to-group group-id="NewGroup" anchor="last"/>
+<!--            <add-to-group group-id="MyPlugin.NewGroup" anchor="last"/>-->
+        </action>
+    </actions>
+</idea-plugin>
