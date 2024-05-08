@@ -4,19 +4,12 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.ui.Messages
-import com.intellij.testFramework.utils.vfs.createFile
-
+import com.intellij.openapi.vfs.VirtualFile
 
 class GenerateFolderStructureAction : AnAction() {
     override fun actionPerformed(event: AnActionEvent) {
-//        val featureName = Messages.showInputDialog("Enter Feature Name:", "Generate Folder Structure", null)
-//        if (featureName.isNullOrBlank()) {
-//            Messages.showErrorDialog("Feature name cannot be empty.", "Error")
-//            return
-//        }
-//        generateFolderStructure(event.project, featureName)
-
         val dialog = MyInputDialog()
         dialog.show()
         ApplicationManager.getApplication().runWriteAction {
@@ -30,8 +23,9 @@ class GenerateFolderStructureAction : AnAction() {
 
     private fun generateFolderStructure(project: Project?, featureName: String) {
         if (project != null) {
-            val baseDir = project.baseDir
-            val featureDir = baseDir.createChildDirectory(null, featureName)
+            val baseDir = project.guessProjectDir()
+            val libDir = findLibDirectory(baseDir) ?: return
+            val featureDir = libDir.createChildDirectory(null, featureName)
             val dataDir = featureDir.createChildDirectory(null, "data")
             dataDir.createChildDirectory(null, "model")
 
@@ -68,12 +62,45 @@ class GenerateFolderStructureAction : AnAction() {
             providersDir.createChildData(null, "${featureName}_state_provider.dart")
                 .setBinaryContent("class ${featureName.toCamelCase()}StateProvider {}".toByteArray())
 
-
-//            Messages.showInfoMessage("Folder structure generated successfully.", "Success")
+            showToastMessage("Generated Successfully!")
         }
     }
 
     private fun String.toCamelCase(): String {
         return this.split("_").joinToString("") { it.capitalize() }
+    }
+
+    private fun findLibDirectory(baseDir: VirtualFile?): VirtualFile? {
+        // Look for the "lib" directory directly in the base directory
+        val libDir = baseDir?.findChild("lib")
+        return if (libDir != null && libDir.isDirectory) {
+            /*            val featureDir = libDir.findChild("features")
+                        if (featureDir != null && featureDir.isDirectory) {
+                            featureDir
+                        } else {
+                            libDir.createChildDirectory(null, "feature")
+                        }*/
+            findFeatureDir(libDir)
+
+        } else {
+            // If "lib" directory not found, create one
+            val newLibDir = baseDir?.createChildDirectory(null, "lib")
+            findFeatureDir(newLibDir)
+        }
+    }
+
+    private fun findFeatureDir(libDir: VirtualFile?): VirtualFile? {
+        val featureDir = libDir?.findChild("features")
+        return if (featureDir != null && featureDir.isDirectory) {
+            featureDir
+        } else {
+            libDir?.createChildDirectory(null, "features")
+        }
+    }
+
+    private fun showToastMessage(message: String) {
+        ApplicationManager.getApplication().invokeLater {
+            Messages.showMessageDialog(message, "Success", Messages.getInformationIcon())
+        }
     }
 }

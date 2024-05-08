@@ -14,7 +14,11 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-   Flutter Clean Code generator Plugin to generate folder structure.<br>
+   <b>Flutter Clean Code generator Plugin to generate folder structure.</b><br><br>
+   The plugin can be used to generate a very clean folder structure for your Flutter project. It adds an option in your New File menu to generate the folder structure for a feature within your project.<br>
+   The plugin will generate a folder within the directory you clicked to create the new file. It will generate two folders within the feature folder, one for data with its required files for local and remote separately and one for presentation which contain providers, screens and widgets with necessary file and classes.
+
+
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -25,16 +29,10 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
 
     <actions>
-<!--        <group id="GenerateCleanCode.NewGroup"-->
-<!--               text="Generate Clean Code"-->
-<!--               popup="true">-->
-<!--            <add-to-group group-id="NewGroup" anchor="last"/>-->
-<!--        </group>-->
         <action id="GenerateCleanCode.NewAction"
                 class="com.androidbolts.fluttergenerator.fccg.GenerateFolderStructureAction"
                 text="Generate Flutter Clean Code">
             <add-to-group group-id="NewGroup" anchor="last"/>
-<!--            <add-to-group group-id="MyPlugin.NewGroup" anchor="last"/>-->
         </action>
     </actions>
 </idea-plugin>
