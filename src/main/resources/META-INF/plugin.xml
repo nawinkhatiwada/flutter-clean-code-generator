@@ -30,6 +30,7 @@
 
     <actions>
         <action id="GenerateCleanCode.NewAction"
+                icon="/META-INF/ic_action_icon.svg"
                 class="com.androidbolts.fluttergenerator.fccg.GenerateFolderStructureAction"
                 text="Generate Flutter Clean Code">
             <add-to-group group-id="NewGroup" anchor="last"/>
