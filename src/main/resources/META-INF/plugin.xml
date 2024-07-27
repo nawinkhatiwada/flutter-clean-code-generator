@@ -20,6 +20,11 @@
 
 
   ]]></description>
+    <change-notes>
+        <![CDATA[
+        1. You can now generate folders inside any directory that has a direct or indirect parent directory containing a <i>features</i> folder.
+   ]]>
+    </change-notes>
 
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
