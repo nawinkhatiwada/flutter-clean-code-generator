@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.androidbolts.fluttergenerator"
-version = "1.0.3"
+version = "1.0.4"
 
 repositories {
   mavenCentral()
@@ -32,7 +32,7 @@ tasks {
 
   patchPluginXml {
     sinceBuild.set("232")
-    untilBuild.set("242.*")
+    untilBuild.set("251.*")
   }
 
   signPlugin {
