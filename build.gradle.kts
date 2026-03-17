@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.androidbolts.fluttergenerator"
-version = "1.0.4"
+version = "1.0.5"
 
 repositories {
   mavenCentral()
@@ -14,13 +14,19 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-  version.set("2023.2.5")
-  type.set("IC") // Target IDE Platform
+  version.set("2024.3")
+  type.set("IC")
 
   plugins.set(listOf(/* Plugin Dependencies */))
 }
 
+
+
 tasks {
+
+  buildSearchableOptions {
+    enabled = false
+  }
   // Set the JVM compatibility versions
   withType<JavaCompile> {
     sourceCompatibility = "17"
@@ -31,8 +37,7 @@ tasks {
   }
 
   patchPluginXml {
-    sinceBuild.set("232")
-    untilBuild.set("251.*")
+    sinceBuild.set("241")
   }
 
   signPlugin {
